@@ -58,17 +58,17 @@
     ".adlc/test-writer/scripts/kept-interfaces.mjs": "sha256:647e21bcd9e9e13dd4a64482943f213a6be9c4a65eb732dda4166d58ea0a3dab",
     ".adlc/test-writer/scripts/spec-rules.mjs": "sha256:bb24b999fea6251bb9fcb72c160513d4feba9dffb63547511a8efaa95a0b4bfa",
     ".adlc/test-writer/scripts/suite-rules.mjs": "sha256:4ad6e6712117d6d6456c253a4243a6bc1f26ada35f765fbc655af2ad32e09cc2",
-    "agent-descriptor.json": "sha256:28d9052a566d8d0b1025c92446e4c90d58bb7c2f5340c631694b8501501b92c6",
+    "agent-descriptor.json": "sha256:15606c92db910631b60053858d254f76fff6b46666418348f74a28798d3b97de",
     "agent-runtime-requirements.json": "sha256:bc4204876e1d03f160db11db492f60001d28885b4d63bb76bbf9e025049ac583",
     "answers.json": "sha256:25bd35e034f4b6254533c8c4bfd83dc86168373287eab63eeaf074adedf3e63b",
-    "architecture-record.md": "sha256:a18849afe6c2c19f7b1a2d2fa0c11f2e15ff105187f759a3d47411ffdfecbc63",
+    "architecture-record.md": "sha256:ff58552ea646946080e490dd2b16bc66ab163ba475eef3423bbeaee513c1f629",
     "architecture.json": "sha256:050b647e99b30829b04249630fa7c40ef3ae77a1a844eded768ec124e111f255",
-    "plugin.json": "sha256:8e45d8e477e7ff36bb1d134eaac7c3b573c6b8c4d9d1eeca629a64410138ce1b",
+    "plugin.json": "sha256:95d7d5e007bc2493b6cb3d64475dc3454c06fbb7913688965181bf76fafdc6eb",
     "prose.json": "sha256:53c1b00ad955b8892eaf2d7ddf3bdf6c1e4bb30850f20208a968ac079f7c6ac5",
-    "request.md": "sha256:4e4506589e8ea966b48be24053cdf5a7a0bbe3c190c7bddf1d59cfb280e0e09c",
+    "request.md": "sha256:7c15fddaee88fae36159e38405a98daca2f3ab056c12367ca26225e7c2be3e24",
     "scripts/convert-a-date-and-time.mjs": "sha256:2873305c63e056870c1e6e2f8fbd1d248edc99fc7ddb41406ef5135a23e246ec",
     "skills/convert-a-date-and-time/SKILL.md": "sha256:da52159f2abf8595d0453e2f44aed647320013b28324dc4cf23e0c1f50cb2851",
-    "spec.json": "sha256:48cdc9298c19632e341afc18966ee654f3a5095896ccebe840f008b2d4e2d026",
+    "spec.json": "sha256:bb71f11f9542205532d9ce6418151fefbc33628e267eac089d8c0e081f6b4d58",
     "test/convert-a-date-and-time.test.mjs": "sha256:922310683ff85f12a20fea3a96e74616cb74262d0e697fd0155030f3cf1aa97b",
     "test/delivered-formats.test.mjs": "sha256:4c8b8c673c006c84cdf9b65b5a70eb54b3a9b6622c4359da501d76271da71d8a",
     "test/printed-reply.test.mjs": "sha256:83a1cb49772eefde6a22fc870c817f358d8eecd26daa51fc6c2aa08c880697f8",
@@ -79,16 +79,16 @@
     "spec": {
       "passed": true,
       "by": "the person",
-      "at": "2026-11-13T03:48:42.252Z"
+      "at": "2026-11-13T04:33:03.820Z"
     },
     "build": {
       "passed": true,
       "by": "check",
-      "at": "2026-11-13T03:53:26.264Z"
+      "at": "2026-11-13T04:33:35.936Z"
     }
   },
   "build_lock": "v1",
   "tests_fixed": {
-    "at": "2026-11-13T03:52:24.391Z"
+    "at": "2026-11-13T04:33:17.239Z"
   }
 }
