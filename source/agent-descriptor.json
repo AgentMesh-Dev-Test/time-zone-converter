@@ -1,0 +1,83 @@
+{
+  "format": "agent-descriptor-v1",
+  "agent_version": "0.1.0",
+  "does": "Converts a date and time in one IANA time zone to the same moment in a second IANA time zone, and gives the difference in hours between the two, from Node's own time zone data alone.",
+  "offerings": [
+    {
+      "id": "convert-a-date-and-time",
+      "name": "Convert a date and time",
+      "does": "Gives the same moment as a date and time in a second IANA time zone, with the difference in hours between the two zones at that moment.",
+      "inputs": [
+        {
+          "name": "datetime",
+          "kind": "text",
+          "required": true,
+          "given_by": "either",
+          "about": "The date and time where it starts, written as 2026-11-12T09:30."
+        },
+        {
+          "name": "from",
+          "kind": "identifier",
+          "required": true,
+          "given_by": "either",
+          "about": "The time zone that date and time is in, by its IANA name, such as America/Denver."
+        },
+        {
+          "name": "to",
+          "kind": "identifier",
+          "required": true,
+          "given_by": "either",
+          "about": "The time zone to convert it to, by its IANA name, such as Europe/Paris."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "conversion",
+          "kind": "text/markdown",
+          "when": "per_task",
+          "about": "A short Markdown piece: a header of the fields `from`, `to`, `datetime_from`, `datetime_to` and `difference_hours`, with `ambiguous` when the time happens twice, then one sentence saying the same in words. A refusal carries the header field `refused` and one sentence saying why."
+        }
+      ],
+      "how": {
+        "control": "script",
+        "intelligence": "none",
+        "cost": "none",
+        "contract": "full"
+      }
+    }
+  ],
+  "refusals": "Accepting a time zone name that Node's own time zone data does not know, because any answer for it would be invented; it says the name is unknown, names it, and converts nothing.\nGuessing a time zone from a city or country name such as Paris, France or Japan, because a city or country can span several zones; it asks for an IANA name such as Europe/Paris and converts nothing.\nConverting a date and time that is not a real calendar date and clock time, such as 2026-02-30T10:00, because no moment matches it; it says so and converts nothing.\nConverting a clock time that the first place skips when its clocks jump forward, because that moment never happens there; it says the time does not exist in that zone and converts nothing.\nGiving a guessed time when Node's own time zone data cannot be read or fails, because a wrong time is worse than none; it says the conversion could not be made.",
+  "records": [
+    {
+      "name": "the signed job manifest of each delivery",
+      "when": "per_task"
+    }
+  ],
+  "can_use": [
+    {
+      "schema": "https://schemas.agentmesh.ai/brand/v1",
+      "reads": [
+        "name",
+        "legal.first_mention",
+        "words.instead_of",
+        "words.never_say"
+      ],
+      "required": false,
+      "does": "writes the organization's name as the brand writes it, uses its first-mention form the first time, and keeps out the words the brand never says",
+      "without": "writes the organization's name as the person gave it, and says that no brand profile was given"
+    },
+    {
+      "schema": "https://schemas.agentmesh.ai/style-guide/v1",
+      "reads": [
+        "voice",
+        "tone",
+        "spelling",
+        "words.prefer",
+        "words.avoid"
+      ],
+      "required": false,
+      "does": "writes in the organization's voice, tone and spelling, and uses the words it prefers in place of the ones it avoids",
+      "without": "writes in a plain, neutral voice in the spelling of the words it was given, and says that no style guide was given"
+    }
+  ]
+}

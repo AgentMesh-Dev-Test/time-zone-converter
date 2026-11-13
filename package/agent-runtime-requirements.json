@@ -1,0 +1,48 @@
+{
+  "format": "agent-runtime-requirements-v1",
+  "runtimes": [
+    {
+      "name": "node"
+    }
+  ],
+  "binaries": [],
+  "dependencies": [],
+  "systems": [],
+  "ceilings": [],
+  "directories": [
+    {
+      "name": "records",
+      "purpose": "every record the descriptor names"
+    },
+    {
+      "name": "work",
+      "purpose": "inputs and drafts in progress"
+    }
+  ],
+  "price": {
+    "sku": "default",
+    "covers": {
+      "agent": true
+    },
+    "price": {
+      "model": "free"
+    }
+  },
+  "run": {
+    "convert-a-date-and-time": {
+      "command": [
+        "node",
+        "{home}/{package}/skills/convert-a-date-and-time/scripts/convert-a-date-and-time.mjs",
+        "--job",
+        "{job_dir}",
+        "--records",
+        "{records}",
+        "--work",
+        "{work}",
+        "--text-file",
+        "{job_dir}/message.txt"
+      ],
+      "reply": "json:reply"
+    }
+  }
+}

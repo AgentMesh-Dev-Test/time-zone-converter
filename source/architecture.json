@@ -1,0 +1,199 @@
+{
+  "title": "converting a date and time between time zones",
+  "environments": [
+    "dev",
+    "test",
+    "production"
+  ],
+  "systems": [],
+  "kind": {
+    "kind": "plugin-on-harness",
+    "why": "A short, exact program with no judgment in it: check the three inputs, convert with Node's own time zone data, write the answer. A harness reading one skill carries it."
+  },
+  "dependencies": [],
+  "limits": {
+    "cost": null,
+    "speed": {
+      "limit": "one conversion answered within 5 seconds",
+      "why": "It is one calculation on data already in Node, with nothing to wait on."
+    },
+    "data": {
+      "limit": "reads only the date and time and the two time zone names it is given; keeps nothing between runs and sends nothing anywhere",
+      "why": "It reaches no outside system and stores no record."
+    },
+    "trust": {
+      "limit": "takes a job from any caller; it only computes and answers, and refuses rather than guesses",
+      "why": "Nothing it does changes anything outside its own reply."
+    }
+  },
+  "drivers": [
+    {
+      "key": "no-outside-system",
+      "quality": "self-contained",
+      "says": "It reaches no outside system and uses no model; Node's own time zone data is enough.",
+      "from": "It reaches no outside system and uses no model: Node's own time zone data is enough."
+    },
+    {
+      "key": "no-guessing",
+      "quality": "exactness",
+      "says": "It refuses a name it does not know and never guesses a time zone from a city or country name.",
+      "from": "it refuses to guess a time zone from a city or country name"
+    }
+  ],
+  "egress": [],
+  "formats": [
+    {
+      "piece": "the date and time",
+      "direction": "in",
+      "kind": "text",
+      "convention": "a calendar date and wall clock time, as 2026-11-12T09:30, seconds optional, no offset",
+      "given_by": "either",
+      "why": "A person or an agent says when, in the first place's own clock time."
+    },
+    {
+      "piece": "the first place",
+      "direction": "in",
+      "kind": "identifier",
+      "convention": "an IANA time zone name, such as America/Denver",
+      "given_by": "either",
+      "why": "The place the date and time is in."
+    },
+    {
+      "piece": "the second place",
+      "direction": "in",
+      "kind": "identifier",
+      "convention": "an IANA time zone name, such as Europe/Paris",
+      "given_by": "either",
+      "why": "The place to convert to."
+    },
+    {
+      "piece": "the conversion",
+      "direction": "out",
+      "kind": "text/markdown",
+      "convention": "a header of the fields from, to, datetime_from, datetime_to and difference_hours, then one sentence saying the same in words; a refusal is the header field refused and one sentence saying why",
+      "given_by": "agent",
+      "why": "A person reads it, and an agent can take the header fields."
+    }
+  ],
+  "settings": [],
+  "skills": [
+    {
+      "name": "convert-time",
+      "responsibility": "Converts a date and time in one IANA time zone to the same moment in a second, with the difference in hours, or refuses.",
+      "script": "Checks the date and time and both zone names, converts the moment with Node's own time zone data, and writes the answer or the refusal."
+    }
+  ],
+  "parts": [
+    {
+      "id": "input-checker",
+      "name": "input checker",
+      "within": "convert-time",
+      "responsibility": "Finds what is missing, refuses a date and time that is not real, and refuses a name that is unknown or is a city or country name."
+    },
+    {
+      "id": "zone-converter",
+      "name": "zone converter",
+      "within": "convert-time",
+      "responsibility": "Finds the moment the wall clock time names in the first zone, refusing a skipped time and taking the earlier of a doubled one, and gives that moment's clock time in the second zone and the difference in hours."
+    },
+    {
+      "id": "answer-writer",
+      "name": "answer writer",
+      "within": "convert-time",
+      "responsibility": "Writes the conversion or the refusal as the Markdown answer."
+    }
+  ],
+  "flow": [
+    {
+      "from": "caller",
+      "to": "harness",
+      "data": "the date and time and the two places",
+      "says": "The caller asks for the moment in the second place."
+    },
+    {
+      "from": "harness",
+      "to": "input-checker",
+      "data": "the date and time and the two places",
+      "says": "The harness starts the script with the job's inputs."
+    },
+    {
+      "from": "input-checker",
+      "to": "zone-converter",
+      "data": "the checked date and time and zone names",
+      "says": "Only inputs that passed every check are converted."
+    },
+    {
+      "from": "zone-converter",
+      "to": "answer-writer",
+      "data": "the converted date and time and the difference in hours",
+      "says": "The converter hands over the result or the reason it refused."
+    },
+    {
+      "from": "answer-writer",
+      "to": "caller",
+      "data": "the conversion",
+      "says": "The answer goes back as the reply, through the harness."
+    }
+  ],
+  "decisions": [
+    {
+      "decided": "A program does the whole conversion with Node's own time zone data, and no model is called",
+      "context": "Converting a moment between time zones is exact arithmetic over the time zone database, which Node carries.",
+      "drivers": [
+        "no-outside-system",
+        "speed"
+      ],
+      "why": "The answer has one right value, so code gives it every time, testably, at no cost.",
+      "alternatives": [
+        {
+          "option": "A model that reads the request and works out the time",
+          "why_not": "It could guess, and the person said it uses no model."
+        },
+        {
+          "option": "A time zone service on the network",
+          "why_not": "It would be an outside system, and Node's own data is enough."
+        }
+      ],
+      "consequences": [
+        "The job is control script, intelligence none and contract full.",
+        "Its answers are as current as the time zone data of the Node it runs on."
+      ]
+    },
+    {
+      "decided": "Accept only Area/Location names and UTC, checked against Node's own data",
+      "context": "Node's data also knows old single-word aliases such as Japan and Egypt, which read as country names.",
+      "drivers": [
+        "no-guessing",
+        "trust"
+      ],
+      "why": "A single-word name other than UTC is refused as a city or country name, so nothing is guessed from one.",
+      "alternatives": [
+        {
+          "option": "Accept every name Node accepts",
+          "why_not": "Japan or Egypt would be taken as a time zone, which reads as guessing from a country name."
+        }
+      ],
+      "consequences": [
+        "A caller writes Asia/Tokyo, not Japan."
+      ]
+    },
+    {
+      "decided": "Answer synchronously as Markdown",
+      "context": "One conversion, read by a person or taken by an agent.",
+      "drivers": [
+        "speed"
+      ],
+      "why": "The reply is ready at once, and a short header lets an agent read the fields.",
+      "alternatives": [
+        {
+          "option": "a vendor JSON kind",
+          "why_not": "A person reads the answer as often as code does."
+        }
+      ],
+      "consequences": [
+        "Its header fields are fixed so a test can hold them."
+      ]
+    }
+  ],
+  "questions": []
+}

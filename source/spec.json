@@ -1,0 +1,274 @@
+{
+  "format": "spec-v1",
+  "product": {
+    "name": "time-zone-converter",
+    "version": "0.1.0",
+    "kind": "agent"
+  },
+  "purpose": "Converts a date and time in one IANA time zone to the same moment in a second IANA time zone, and says the difference in hours between the two places at that moment. It serves anyone, person or agent, who needs to know what time it will be somewhere else, using only Node's own time zone data.",
+  "users": [
+    {
+      "who": "A person or another agent planning across places",
+      "wants": "The same moment as the date and time in a second place, and how many hours apart the two places are."
+    }
+  ],
+  "source": {
+    "kind": "account"
+  },
+  "features": [
+    {
+      "id": "F1",
+      "name": "Convert a date and time",
+      "does": "Takes a date and time, the IANA time zone it is in and a second IANA time zone, and answers with the same moment as the date and time in the second zone and the difference in hours between the two.",
+      "inputs": [
+        {
+          "name": "datetime",
+          "kind": "text",
+          "about": "The date and time where it starts, written as 2026-11-12T09:30.",
+          "required": true,
+          "given_by": "either"
+        },
+        {
+          "name": "from",
+          "kind": "identifier",
+          "about": "The time zone that date and time is in, by its IANA name, such as America/Denver.",
+          "required": true,
+          "given_by": "either"
+        },
+        {
+          "name": "to",
+          "kind": "identifier",
+          "about": "The time zone to convert it to, by its IANA name, such as Europe/Paris.",
+          "required": true,
+          "given_by": "either"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "conversion",
+          "kind": "text/markdown",
+          "about": "A short Markdown piece: a header of the fields `from`, `to`, `datetime_from`, `datetime_to` and `difference_hours`, then one sentence saying the same in words."
+        }
+      ],
+      "requirements": [
+        {
+          "id": "F1.R1",
+          "kind": "behavior",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall answer with the same moment as the given date and time, written as the date and time in the second time zone.",
+          "source": {
+            "said": "It answers with the same moment as the date and time in the second place"
+          }
+        },
+        {
+          "id": "F1.R2",
+          "kind": "output",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall answer with the difference in hours between the two time zones at that moment, as the second zone's offset from UTC minus the first zone's, signed and in hours that may be fractional.",
+          "source": {
+            "said": "and the difference in hours between the two"
+          }
+        },
+        {
+          "id": "F1.R3",
+          "kind": "input",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall take the date and time as a calendar date and a wall clock time in the form YYYY-MM-DDTHH:mm, with optional :ss seconds, and no offset of its own.",
+          "source": {
+            "said": "A caller gives it a date and time, the place it is in, and a second place"
+          }
+        },
+        {
+          "id": "F1.R4",
+          "kind": "input",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall take each place as an IANA time zone name such as America/Denver or Europe/Paris, and accept any such name Node's own time zone data knows, along with UTC.",
+          "source": {
+            "said": "each place as an IANA time zone name such as America/Denver or Europe/Paris"
+          }
+        },
+        {
+          "id": "F1.R5",
+          "kind": "refusal",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall refuse a time zone name that Node's time zone data does not know, naming the name it did not know, and give no conversion.",
+          "source": {
+            "said": "It refuses a time zone name it does not know"
+          }
+        },
+        {
+          "id": "F1.R6",
+          "kind": "refusal",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall refuse a city or country name given in place of a time zone, such as Paris, France or Japan, even where an old IANA alias spells the same word, and shall not guess a time zone from it.",
+          "source": {
+            "said": "it refuses to guess a time zone from a city or country name"
+          }
+        },
+        {
+          "id": "F1.R7",
+          "kind": "refusal",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall refuse a date and time that is not in the form it takes or is not a real calendar date and clock time, such as 2026-02-30T10:00, and give no conversion.",
+          "source": {
+            "said": "A caller gives it a date and time"
+          }
+        },
+        {
+          "id": "F1.R8",
+          "kind": "refusal",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall refuse a wall clock time that never happens in the first time zone because the clocks jump forward over it, and give no conversion.",
+          "source": {
+            "said": "It answers with the same moment as the date and time in the second place"
+          }
+        },
+        {
+          "id": "F1.R9",
+          "kind": "behavior",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall, for a wall clock time that happens twice in the first time zone because the clocks go back, convert the earlier of the two moments and say in its answer that the time was ambiguous.",
+          "source": {
+            "said": "It answers with the same moment as the date and time in the second place"
+          }
+        },
+        {
+          "id": "F1.R10",
+          "kind": "refusal",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall, when the date and time, the first place or the second place is missing or blank, convert nothing and answer naming each one that is missing.",
+          "source": {
+            "said": "A caller gives it a date and time, the place it is in, and a second place"
+          }
+        },
+        {
+          "id": "F1.R11",
+          "kind": "error",
+          "priority": "must",
+          "verify": "test",
+          "shall": "The agent shall, when Node's own time zone data cannot be read or fails while converting, answer that the conversion could not be made and give no guessed time.",
+          "exact": [
+            "time zone data"
+          ],
+          "source": {
+            "said": "Node's own time zone data is enough"
+          }
+        }
+      ],
+      "acceptance": [
+        {
+          "id": "F1.A1",
+          "gherkin": "Scenario: Denver morning in Paris\n  Given the date and time 2026-11-12T09:30\n  And the first place America/Denver\n  And the second place Europe/Paris\n  When the agent converts it\n  Then it answers 2026-11-12T17:30 in Europe/Paris\n  And it answers a difference of 8 hours",
+          "checks": [
+            "F1.R1",
+            "F1.R2",
+            "F1.R3",
+            "F1.R4"
+          ]
+        },
+        {
+          "id": "F1.A2",
+          "gherkin": "Scenario: A fractional difference that crosses the date line of the day\n  Given the date and time 2026-01-15T22:00\n  And the first place UTC\n  And the second place Asia/Kolkata\n  When the agent converts it\n  Then it answers 2026-01-16T03:30 in Asia/Kolkata\n  And it answers a difference of 5.5 hours",
+          "checks": [
+            "F1.R1",
+            "F1.R2"
+          ]
+        },
+        {
+          "id": "F1.A3",
+          "gherkin": "Scenario: Going west gives a negative difference\n  Given the date and time 2026-07-01T12:00\n  And the first place Europe/Paris\n  And the second place America/Denver\n  When the agent converts it\n  Then it answers 2026-07-01T04:00 in America/Denver\n  And it answers a difference of -8 hours",
+          "checks": [
+            "F1.R1",
+            "F1.R2"
+          ]
+        },
+        {
+          "id": "F1.A4",
+          "gherkin": "Scenario: An unknown time zone name\n  Given the date and time 2026-11-12T09:30\n  And the first place America/Denverr\n  And the second place Europe/Paris\n  When the agent converts it\n  Then it refuses, saying unknown time zone and naming America/Denverr\n  And it gives no conversion",
+          "checks": [
+            "F1.R5"
+          ]
+        },
+        {
+          "id": "F1.A5",
+          "gherkin": "Scenario: A city or country name in place of a time zone\n  Given the date and time 2026-11-12T09:30\n  And the first place Paris, and in a second try Japan\n  And the second place America/Denver\n  When the agent converts it\n  Then it refuses, saying not an IANA time zone name\n  And it gives no conversion",
+          "checks": [
+            "F1.R6"
+          ]
+        },
+        {
+          "id": "F1.A6",
+          "gherkin": "Scenario: A date that is not real\n  Given the date and time 2026-02-30T10:00\n  And the first place America/Denver\n  And the second place Europe/Paris\n  When the agent converts it\n  Then it refuses, saying not a date and time\n  And it gives no conversion",
+          "checks": [
+            "F1.R7",
+            "F1.R3"
+          ]
+        },
+        {
+          "id": "F1.A7",
+          "gherkin": "Scenario: A time skipped when the clocks jump forward\n  Given the date and time 2026-03-08T02:30\n  And the first place America/Denver\n  And the second place Europe/Paris\n  When the agent converts it\n  Then it refuses, saying the time does not exist in America/Denver\n  And it gives no conversion",
+          "checks": [
+            "F1.R8"
+          ]
+        },
+        {
+          "id": "F1.A8",
+          "gherkin": "Scenario: A time that happens twice when the clocks go back\n  Given the date and time 2026-11-01T01:30\n  And the first place America/Denver\n  And the second place UTC\n  When the agent converts it\n  Then it answers 2026-11-01T07:30 in UTC, the earlier of the two moments\n  And it says the time was ambiguous",
+          "checks": [
+            "F1.R9"
+          ]
+        },
+        {
+          "id": "F1.A9",
+          "gherkin": "Scenario: Nothing to convert\n  Given no date and time\n  And no second place\n  When the agent is asked to convert\n  Then it converts nothing\n  And it answers that the date and time and the second place are missing",
+          "checks": [
+            "F1.R10"
+          ]
+        },
+        {
+          "id": "F1.A10",
+          "gherkin": "Scenario: The time zone data fails\n  Given the date and time 2026-11-12T09:30 from America/Denver to Europe/Paris\n  And Node's time zone data throws when it is read\n  When the agent converts it\n  Then it answers that the conversion could not be made because of the time zone data\n  And it gives no guessed time",
+          "checks": [
+            "F1.R11"
+          ]
+        }
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C1",
+      "kind": "security",
+      "priority": "must",
+      "verify": "test",
+      "shall": "The agent shall reach no outside system and use no model, working from Node's own time zone data alone.",
+      "source": {
+        "said": "It reaches no outside system and uses no model: Node's own time zone data is enough."
+      }
+    },
+    {
+      "id": "C2",
+      "kind": "runtime",
+      "priority": "must",
+      "verify": "inspection",
+      "shall": "The agent shall run on Node 22 or later with nothing outside Node.",
+      "source": {
+        "said": "Node's own time zone data is enough"
+      }
+    }
+  ],
+  "systems": [],
+  "settings": [],
+  "price": "free",
+  "open": []
+}

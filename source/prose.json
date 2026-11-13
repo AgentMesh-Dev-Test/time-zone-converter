@@ -1,0 +1,16 @@
+{
+  "description": "Converts a date and time in one IANA time zone to the same moment in a second IANA time zone, and gives the difference in hours between the two, from Node's own time zone data alone.",
+  "refuses": [
+    "Accepting a time zone name that Node's own time zone data does not know, because any answer for it would be invented; it says the name is unknown, names it, and converts nothing.",
+    "Guessing a time zone from a city or country name such as Paris, France or Japan, because a city or country can span several zones; it asks for an IANA name such as Europe/Paris and converts nothing.",
+    "Converting a date and time that is not a real calendar date and clock time, such as 2026-02-30T10:00, because no moment matches it; it says so and converts nothing.",
+    "Converting a clock time that the first place skips when its clocks jump forward, because that moment never happens there; it says the time does not exist in that zone and converts nothing.",
+    "Giving a guessed time when Node's own time zone data cannot be read or fails, because a wrong time is worse than none; it says the conversion could not be made."
+  ],
+  "job:convert-a-date-and-time.does": "Gives the same moment as a date and time in a second IANA time zone, with the difference in hours between the two zones at that moment.",
+  "job:convert-a-date-and-time.when": "When someone knows a date and time in one IANA time zone and needs the same moment's clock time in another.",
+  "job:convert-a-date-and-time.good": "The header gives both zone names, the date and time as given, the same moment's date and time in the second zone, and the second zone's offset minus the first's in hours, which may be negative or fractional, and the sentence says the same.",
+  "job:convert-a-date-and-time.empty": "When the date and time, the first place or the second place is missing or blank, it converts nothing and names each piece that is missing, so the caller can send it again.",
+  "job:convert-a-date-and-time.instructions": "Run scripts/convert-a-date-and-time.mjs with the job. It checks that the date and time is written as 2026-11-12T09:30, with optional seconds, and is a real date and time; that each place is an IANA Area/Location name, or UTC, that Node's own time zone data knows; and refuses otherwise. It then finds the moment that clock time names in the first zone, refusing a time the clocks skip and taking the earlier of a time that happens twice, which it marks as ambiguous, and writes that moment's date and time in the second zone with the difference in hours. Hand back its reply as it is; never correct a zone name or a time on the caller's behalf.",
+  "job:convert-a-date-and-time.outputs:conversion.about": "A short Markdown piece: a header of the fields `from`, `to`, `datetime_from`, `datetime_to` and `difference_hours`, with `ambiguous` when the time happens twice, then one sentence saying the same in words. A refusal carries the header field `refused` and one sentence saying why."
+}

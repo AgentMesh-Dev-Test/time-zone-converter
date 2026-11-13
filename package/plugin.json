@@ -1,0 +1,37 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "time-zone-converter",
+  "version": "0.1.0",
+  "description": "Converts a date and time in one IANA time zone to the same moment in a second IANA time zone, and gives the difference in hours between the two, from Node's own time zone data alone.",
+  "author": {
+    "name": "Agent Builder"
+  },
+  "keywords": [
+    "built-agent",
+    "draft",
+    "convert-a-date-and-time"
+  ],
+  "extensions": {
+    "net.agentdoc.package": {
+      "build": {
+        "skills": {
+          "convert-a-date-and-time": {
+            "scripts": [
+              "scripts/convert-a-date-and-time.mjs"
+            ]
+          }
+        }
+      },
+      "descriptor": {
+        "path": "agent-descriptor.json",
+        "sha256": "28d9052a566d8d0b1025c92446e4c90d58bb7c2f5340c631694b8501501b92c6"
+      },
+      "runtime_requirements": {
+        "path": "agent-runtime-requirements.json",
+        "sha256": "bc4204876e1d03f160db11db492f60001d28885b4d63bb76bbf9e025049ac583"
+      },
+      "built": true,
+      "draft": true
+    }
+  }
+}

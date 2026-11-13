@@ -1,0 +1,3 @@
+Name: time-zone-converter. A caller gives it a date and time, the place it is in, and a second place, each place as an IANA time zone name such as America/Denver or Europe/Paris. It answers with the same moment as the date and time in the second place, and the difference in hours between the two. It reaches no outside system and uses no model: Node's own time zone data is enough. It refuses a time zone name it does not know, and it refuses to guess a time zone from a city or country name. It is free.
+
+This is everything I am going to tell you up front. Take it from the spec to an open pull request against main, running the check after every change. Where only I can decide, ask me plainly and give your recommendation; stop and wait only then.

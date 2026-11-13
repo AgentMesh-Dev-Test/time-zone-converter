@@ -1,0 +1,8 @@
+{
+  "name": "time-zone-converter",
+  "price": "free",
+  "limit-cost": {
+    "answer": "nothing: it calls no model and reaches no outside system, so it spends nothing on any run",
+    "said": "It reaches no outside system and uses no model: Node's own time zone data is enough."
+  }
+}
