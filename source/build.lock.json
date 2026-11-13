@@ -9,7 +9,7 @@
     ".adlc/code-writer/scripts/workspace.mjs": "sha256:19afac2a97f2929d344162884cf00766706672f31c6d6af58e82a7fb1a259340",
     ".adlc/common-agent-pin.json": "sha256:e4f41e41595531b255f1de4004413ff24b98f80cad11bb3575316443c0f54d09",
     ".adlc/generate.mjs": "sha256:1393db0d0a3f508d8107b7954024e0e3f34193bf0291568c78f67d735e9b7841",
-    ".adlc/packer.mjs": "sha256:1b8f686403262d27349021b510915983b519c7d5b18755b4a1ac185de164eeda",
+    ".adlc/packer.mjs": "sha256:904c9619846cf428a3f5c3422065c6d69d5d416ca50dca246231c007074db72e",
     ".adlc/solution-architect/references/a-record-that-works.md": "sha256:63a01c2452d12bd29ff9d3b0593aa04b79b83c562c8a2b59e52d97bede0e3295",
     ".adlc/solution-architect/references/architecture-standard.md": "sha256:175940448b230b68ecc1a8e61fd908c0f9fa428de02679815036d161410b73e1",
     ".adlc/solution-architect/references/house-stack.json": "sha256:36f08792cf6df755c9475556931ebe32323e498ee6f49f73e076580389d85003",
