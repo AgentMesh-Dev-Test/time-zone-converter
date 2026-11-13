@@ -212,13 +212,20 @@ export async function put(dir, { env = process.env, run = runCommand, packer = p
 }
 
 /** The caller's commands, in a container of the same image so nothing on this
- *  computer is touched: its own key the first time, kept on its volume. */
+ *  computer is touched: its own key the first time, kept on its volume. With
+ *  no message to send it says who it is. */
 export function callerScript() {
   return [
     "set -eu", "export HOME=/data/home", "mkdir -p \"$HOME\"",
     "if [ ! -s \"$HOME/.agentmesh/adapter/mesh.creds\" ]; then agentmesh mesh-home set \"$LOCAL_MESH_HOME\" >/dev/null; agentmesh bootstrap \"$LOCAL_AGENT_KEY\" >/dev/null; fi",
+    "if [ -z \"${TRY_TO:-}\" ]; then exec agentmesh identity me --json; fi",
     "agentmesh messages send \"$TRY_TO\" \"$TRY_TEXT\" --wait 90",
   ].join("\n");
+}
+
+/** The caller's agent id, from what `identity me --json` printed. */
+export function callerIdOf(stdout) {
+  try { const d = JSON.parse(stdout); return String(d.agent_id ?? d.agent?.id ?? "") || null; } catch { return null; }
 }
 
 /** Send the running agent one message from the local caller, and show the reply. */
@@ -228,15 +235,24 @@ export async function tryIt(dir, { text, env = process.env, run = runCommand } =
   const agent = readJson(join(home, "agents", name, "agent.json"));
   if (!agent?.id) return { code: 1, said: "It does not run on the local mesh yet. Run node .adlc/local.mjs put first." };
   const caller = join(home, "caller.json");
-  const known = readJson(caller);
-  const key = known?.ready ? "" : mintKey("local-caller", { env, run });
-  if (!known?.ready && !key) return { code: 1, said: "The local mesh would not make the caller's key. Is it running? node .adlc/local.mjs status" };
+  let known = readJson(caller);
+  const callerRun = (extra) => run("docker", ["run", "--rm", "--add-host", "host.docker.internal:host-gateway", "-v", `${PROJECT}-caller:/data`,
+    "-e", `LOCAL_MESH_HOME=${CONTAINER_HOME_URL}`, ...extra, "--entrypoint", "sh", agent.image, "-c", callerScript()], { timeout: 240_000 });
+  if (!known?.id) {
+    const key = mintKey("local-caller", { env, run });
+    if (!key) return { code: 1, said: "The local mesh would not make the caller's key. Is it running? node .adlc/local.mjs status" };
+    const id = callerIdOf(callerRun(["-e", `LOCAL_AGENT_KEY=${key}`]).stdout);
+    if (!id) return { code: 1, said: "The local caller could not join the local mesh. See: node .adlc/local.mjs status" };
+    known = { id };
+    writeFileSync(caller, JSON.stringify(known, null, 2) + "\n");
+  }
+  // The agent holds a stranger's message at its door, as every agent does;
+  // the caller is the person's own, so it is let in, and nobody else is.
+  const admitted = run("docker", ["exec", agent.container ?? containerOf(name), "sh", "-c", `HOME=/data/home agentmesh contacts admit ${known.id}`], { timeout: 60_000 });
+  if (admitted.status !== 0) return { code: 1, said: `The agent would not let your local caller in: ${tail(admitted)}` };
   const words = String(text ?? "").trim() || "Hello. What can you do?";
-  const r = run("docker", ["run", "--rm", "--add-host", "host.docker.internal:host-gateway", "-v", `${PROJECT}-caller:/data`,
-    "-e", `LOCAL_MESH_HOME=${CONTAINER_HOME_URL}`, "-e", `LOCAL_AGENT_KEY=${key}`, "-e", `TRY_TO=${agent.id}`, "-e", `TRY_TEXT=${words}`,
-    "--entrypoint", "sh", agent.image, "-c", callerScript()], { timeout: 240_000 });
+  const r = callerRun(["-e", "LOCAL_AGENT_KEY=", "-e", `TRY_TO=${agent.id}`, "-e", `TRY_TEXT=${words}`]);
   if (r.status !== 0) return { code: 1, said: `The message did not go through: ${tail(r)}` };
-  if (!known?.ready) writeFileSync(caller, JSON.stringify({ ready: true }, null, 2) + "\n");
   return { code: 0, said: r.stdout.trim() };
 }
 
