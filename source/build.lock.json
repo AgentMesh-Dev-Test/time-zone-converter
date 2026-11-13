@@ -8,7 +8,7 @@
     ".adlc/code-writer/scripts/check.mjs": "sha256:781f6d13b1aa324f39dc17848df01981745c8bd6bc5564ee2a1a19d169b4bd7d",
     ".adlc/code-writer/scripts/workspace.mjs": "sha256:19afac2a97f2929d344162884cf00766706672f31c6d6af58e82a7fb1a259340",
     ".adlc/common-agent-pin.json": "sha256:e4f41e41595531b255f1de4004413ff24b98f80cad11bb3575316443c0f54d09",
-    ".adlc/deploy.mjs": "sha256:b4a0e9969821fcc1423c0df1ff5e929bfd0c578ac8f59dabdfdf26c3ae281c80",
+    ".adlc/deploy.mjs": "sha256:f28bf56c7c5751a9cc7cc2a6f5fd8727fcccd909a8d1ad9a0aca5236699174d6",
     ".adlc/generate.mjs": "sha256:1393db0d0a3f508d8107b7954024e0e3f34193bf0291568c78f67d735e9b7841",
     ".adlc/packer.mjs": "sha256:904c9619846cf428a3f5c3422065c6d69d5d416ca50dca246231c007074db72e",
     ".adlc/solution-architect/references/a-record-that-works.md": "sha256:63a01c2452d12bd29ff9d3b0593aa04b79b83c562c8a2b59e52d97bede0e3295",
