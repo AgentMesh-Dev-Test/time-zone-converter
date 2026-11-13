@@ -2,7 +2,7 @@
   "format": "spec-v1",
   "product": {
     "name": "time-zone-converter",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "kind": "agent"
   },
   "purpose": "Converts a date and time in one IANA time zone to the same moment in a second IANA time zone, and says the difference in hours between the two places at that moment. It serves anyone, person or agent, who needs to know what time it will be somewhere else, using only Node's own time zone data.",

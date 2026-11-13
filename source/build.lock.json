@@ -42,7 +42,7 @@
     ".adlc/spec-writer/scripts/seed.mjs": "sha256:8de37d4ed9760987b05e418dff0e7ac030560248143288cf34aa4dd957ee9b58",
     ".adlc/spec-writer/scripts/spec-check.mjs": "sha256:d0b1429dec38a63ef970ff0c48bc98afeac9fba0b5e2b4ef674f706714fa8ed9",
     ".adlc/spec-writer/scripts/spec-v1.mjs": "sha256:2803fd63c08c6843453e0a65d4ddff425b3837e2479c8406a163f64403a45a96",
-    ".adlc/spec-writer/scripts/structure.mjs": "sha256:f27d7c62a18ec9d5cd49e44fd0fa625f86d3d2bfbdd97b124a4c2896f6afc945",
+    ".adlc/spec-writer/scripts/structure.mjs": "sha256:e6b2fcc06d242b9519422589f4d79539dc6075eefe4b9bd9cc1445cebbc3ce0c",
     ".adlc/stages.json": "sha256:d112d7b639549c10c851d0f9005bf187abf66654a3855833e6b0afd2da2377a9",
     ".adlc/stages.mjs": "sha256:e7bc8d83430e751d4624a8c601a7724677273e3881a3ed1ceed3f8135e220375",
     ".adlc/start.mjs": "sha256:742a6a6154eb06e880af3ff6eecaa0358cb81cd2288a5a0b20bcd0a97cc51ea6",
@@ -58,17 +58,17 @@
     ".adlc/test-writer/scripts/kept-interfaces.mjs": "sha256:647e21bcd9e9e13dd4a64482943f213a6be9c4a65eb732dda4166d58ea0a3dab",
     ".adlc/test-writer/scripts/spec-rules.mjs": "sha256:bb24b999fea6251bb9fcb72c160513d4feba9dffb63547511a8efaa95a0b4bfa",
     ".adlc/test-writer/scripts/suite-rules.mjs": "sha256:4ad6e6712117d6d6456c253a4243a6bc1f26ada35f765fbc655af2ad32e09cc2",
-    "agent-descriptor.json": "sha256:15606c92db910631b60053858d254f76fff6b46666418348f74a28798d3b97de",
-    "agent-runtime-requirements.json": "sha256:bc4204876e1d03f160db11db492f60001d28885b4d63bb76bbf9e025049ac583",
+    "agent-descriptor.json": "sha256:8da42d442c2150228e9696d6de4ae960f117e5877ef47d28ac39f3694e0fb879",
+    "agent-runtime-requirements.json": "sha256:adf3cf7f3b3e98d37fb388200c41e954176aeca037199ef7b695fba5378ffe53",
     "answers.json": "sha256:25bd35e034f4b6254533c8c4bfd83dc86168373287eab63eeaf074adedf3e63b",
-    "architecture-record.md": "sha256:ff58552ea646946080e490dd2b16bc66ab163ba475eef3423bbeaee513c1f629",
+    "architecture-record.md": "sha256:6e11849aa224be53acf7fa387b49c1b921bc1592e35d2a92a9941a4aeee51269",
     "architecture.json": "sha256:050b647e99b30829b04249630fa7c40ef3ae77a1a844eded768ec124e111f255",
-    "plugin.json": "sha256:95d7d5e007bc2493b6cb3d64475dc3454c06fbb7913688965181bf76fafdc6eb",
+    "plugin.json": "sha256:aa6cea423b976264e3d2812b55669d6170419b9286ac6a560b1c42ff184f4715",
     "prose.json": "sha256:53c1b00ad955b8892eaf2d7ddf3bdf6c1e4bb30850f20208a968ac079f7c6ac5",
-    "request.md": "sha256:7c15fddaee88fae36159e38405a98daca2f3ab056c12367ca26225e7c2be3e24",
+    "request.md": "sha256:a992282b07b6b5dac7857cc42ce4bfee689b17442464b08e68ec4bb497eb02ef",
     "scripts/convert-a-date-and-time.mjs": "sha256:2873305c63e056870c1e6e2f8fbd1d248edc99fc7ddb41406ef5135a23e246ec",
     "skills/convert-a-date-and-time/SKILL.md": "sha256:da52159f2abf8595d0453e2f44aed647320013b28324dc4cf23e0c1f50cb2851",
-    "spec.json": "sha256:bb71f11f9542205532d9ce6418151fefbc33628e267eac089d8c0e081f6b4d58",
+    "spec.json": "sha256:0c1e4d034be06d3a6e401a8c0b38090d3b6b18186aa90e3fc1b7f20dd8c4fa92",
     "test/convert-a-date-and-time.test.mjs": "sha256:922310683ff85f12a20fea3a96e74616cb74262d0e697fd0155030f3cf1aa97b",
     "test/delivered-formats.test.mjs": "sha256:4c8b8c673c006c84cdf9b65b5a70eb54b3a9b6622c4359da501d76271da71d8a",
     "test/printed-reply.test.mjs": "sha256:83a1cb49772eefde6a22fc870c817f358d8eecd26daa51fc6c2aa08c880697f8",
@@ -79,16 +79,16 @@
     "spec": {
       "passed": true,
       "by": "the person",
-      "at": "2026-11-13T04:33:03.820Z"
+      "at": "2026-11-13T05:16:32.883Z"
     },
     "build": {
       "passed": true,
       "by": "check",
-      "at": "2026-11-13T04:33:35.936Z"
+      "at": "2026-11-13T05:16:50.191Z"
     }
   },
   "build_lock": "v1",
   "tests_fixed": {
-    "at": "2026-11-13T04:33:17.239Z"
+    "at": "2026-11-13T05:16:46.538Z"
   }
 }

@@ -5,3 +5,7 @@ This is everything I am going to tell you up front. Take it from the spec to an 
 ## The person asked for changes (2026-11-12)
 
 I sent the spec back for one change only: make this version 0.1.1. Nothing else about the agent changes. Version 0.1.0 is installed on AgentMesh but its package left out the script, so it could not run; the plugin now packs the script inside the skill, and AgentMesh only takes an update whose version is higher. Run the check, commit and push this branch, and stop for my approval.
+
+## The person asked for changes (2026-11-12)
+
+I updated the plugin to 0.2.3 and sent the spec back for one change only: make this version 0.1.2. Nothing else about the agent changes. Version 0.1.1 runs on AgentMesh but its run named no message_file, so the host never wrote my message to the file the command reads; the plugin's generator now declares it. Run the check, commit and push this branch, and stop for my approval.

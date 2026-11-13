@@ -14,3 +14,11 @@ I sent the spec back for one change only: make this version 0.1.1. Nothing else 
 
 Approved. Build the rest until the check passes, then commit the folder on this branch and push it.
 
+## 2026-11-13T05:15:55.230Z
+
+I updated the plugin to 0.2.3 and sent the spec back for one change only: make this version 0.1.2. Nothing else about the agent changes. Version 0.1.1 runs on AgentMesh but its run named no message_file, so the host never wrote my message to the file the command reads; the plugin's generator now declares it. Run the check, commit and push this branch, and stop for my approval.
+
+## 2026-11-13T05:16:33.978Z
+
+Approved. Build the rest until the check passes, then commit the folder on this branch and push it.
+
