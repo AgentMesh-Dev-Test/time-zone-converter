@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "adlc": {
+      "source": {
+        "source": "github",
+        "repo": "CommonAgent/adlc"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "adlc@adlc": true
+  }
+}
